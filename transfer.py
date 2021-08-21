@@ -10,7 +10,7 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
     parser.add_argument('--cuda', action='store_true')
-    parser.add_argument('--model_root', type=str, default='trained_model/white2yellow')
+    parser.add_argument('--model_root', type=str, default='trained_model/cloudtransfer')
     opt = parser.parse_args()
 
     # Variable
