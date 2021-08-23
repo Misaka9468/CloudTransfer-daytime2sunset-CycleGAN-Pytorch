@@ -40,6 +40,7 @@ if __name__ == '__main__':
     root = opt.root
     all_epochs = opt.all_epochs
     start_epoch = opt.start_epoch
+    decay_epoch = opt.decay_epoch
     lr = opt.lr
     in_channel = opt.in_channel
     out_channel = opt.out_channel
@@ -78,7 +79,7 @@ if __name__ == '__main__':
     # LR scheduler
     # in epoch_i, new_lr = old_lr * lr_lambda(epoch_i)
     def lr_lambda(epoch):
-        return 1.0 - max(0, epoch + opt.start_epoch - opt.decay_epoch) / (opt.all_epochs - opt.decay_epoch)
+        return 1.0 - max(0, epoch + start_epoch - decay_epoch) / (all_epochs - decay_epoch)
 
 
     lr_scheduler_G = optim.lr_scheduler.LambdaLR(optimizer_G, lr_lambda)
@@ -169,7 +170,7 @@ if __name__ == '__main__':
             logger.log({'loss_G': loss_G_total, 'loss_G_identity': (loss_idt_A + loss_idt_B),
                         'loss_G_GAN': (loss_GAN_A2B + loss_GAN_B2A),
                         'loss_G_cycle': (loss_cycle_ABA + loss_cycle_BAB), 'loss_D': (loss_DA_total + loss_DB_total)},
-                       images={'real_A': real_A, 'real_B': real_B, 'fake_A': fake_A, 'fake_B': fake_B})
+                       images={'fake_A': fake_A, 'fake_B': fake_B})
 
         # update lr
         lr_scheduler_G.step()
@@ -177,9 +178,11 @@ if __name__ == '__main__':
         lr_scheduler_D_B.step()
 
         # save models checkpoints
-        torch.save(G_A2B.state_dict(), 'checkpoints/Generator_A2B.pth')
-        torch.save(G_B2A.state_dict(), 'checkpoints/Generator_B2A.pth')
-        torch.save(D_A.state_dict(), 'checkpoints/Discriminator_A.pth')
-        torch.save(D_B.state_dict(), 'checkpoints/Discriminator_B.pth')
+        ckpt={
+            'GA2B': G_A2B.state_dict(),
+            'GB2A': G_B2A.state_dict()
+        }
+        checkpoint_path = 'checkpoints/checkpoint_%s.pth' % (str(now_epoch))
+        torch.save(ckpt, checkpoint_path)
 
     logger.endplot()
