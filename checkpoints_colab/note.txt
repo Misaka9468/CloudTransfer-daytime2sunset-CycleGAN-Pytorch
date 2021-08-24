@@ -1,2 +1,0 @@
-checkpoint trained in Colab should be stored here.
-colab训练得到的checkpoint应该在这里储存
