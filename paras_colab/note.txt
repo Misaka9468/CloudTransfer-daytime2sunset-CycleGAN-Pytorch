@@ -1,1 +1,0 @@
-model paras when using colab should stored here.
