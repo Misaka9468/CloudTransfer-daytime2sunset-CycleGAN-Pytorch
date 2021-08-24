@@ -25,8 +25,10 @@ Compared with the original paper code, the code of this project is more easy to 
 
 ### 白云<->晚霞(cloud-daytime2sunset)
 ![Good1](https://github.com/Misaka9468/CloudTransfer-daytime2sunset-CycleGAN-Pytorch/blob/master/imgs/good1.jpg)
+![bad1](https://github.com/Misaka9468/CloudTransfer-daytime2sunset-CycleGAN-Pytorch/blob/master/imgs/bad1.jpg)
 ### 苹果<->橘子(apple2orange)
-
+![Good2](https://github.com/Misaka9468/CloudTransfer-daytime2sunset-CycleGAN-Pytorch/blob/master/imgs/good2.jpg)
+![bad2](https://github.com/Misaka9468/CloudTransfer-daytime2sunset-CycleGAN-Pytorch/blob/master/imgs/bad2.jpg)
 ## 运行环境及部分安装包(Prerequisites)
 
 * Python 3.8
