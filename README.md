@@ -24,7 +24,7 @@ Compared with the original paper code, the code of this project is more easy to 
 ## 结果展示(transfer result)
 
 ### 白云<->晚霞(cloud-daytime2sunset)
-
+![Good1](https://github.com/Misaka9468/CloudTransfer-daytime2sunset-CycleGAN-Pytorch/blob/master/imgs/good1.jpg)
 ### 苹果<->橘子(apple2orange)
 
 ## 运行环境及部分安装包(Prerequisites)
