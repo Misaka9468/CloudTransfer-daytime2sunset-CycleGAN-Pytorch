@@ -8,7 +8,7 @@
 
 **论文地址：** https://arxiv.org/abs/1703.10593  
   
-**部分代码参考：** https://github.com/aitorzip/PyTorch-CycleGAN  (使用框架为`Pytorch 0.3`，部分代码在高版本Pytorch中已经失效)
+**部分代码参考：** [aitorzip/PyTorch-CycleGAN](https://github.com/aitorzip/PyTorch-CycleGAN)  (使用框架为`Pytorch 0.3`，部分代码在高版本Pytorch中已经失效)
 <br/><br/><br/>
 This project is based on `Pytorch1.7.1`, implements CycleGAN model, and the corresponding training, testing, and application functions.  
   
@@ -18,7 +18,7 @@ Compared with the original paper code, the code of this project is more easy to 
 
 **Paper:** https://arxiv.org/abs/1703.10593  
 
-**Part of the code reference:** https://github.com/aitorzip/PyTorch-CycleGAN    
+**Part of the code reference:**  [aitorzip/PyTorch-CycleGAN](https://github.com/aitorzip/PyTorch-CycleGAN)  
 (Based on `Pytorch 0.3`, part of the code is invalid in the higher version of Pytorch)  
 
 ## 结果展示(transfer result)
@@ -46,24 +46,24 @@ Compared with the original paper code, the code of this project is more easy to 
 
 * dataset recommended：https://people.eecs.berkeley.edu/~taesung_park/CycleGAN/datasets/
 
-* prepare your dataset：
-  All the images should have 256\*256 px size with RGB channel
-  The directory structure be like
+* prepare your dataset：  
+    All the images should have 256\*256 px size with RGB channel  
+    The directory structure be like
   
 ```
-    ├── datasets                   
-    |   ├── <your_datasets_name>   # i.e. apple2orange         
-    |   |   ├── trainA             # about 1000 images of apples
-    |   |   ├── trainB             # about 1000 images of oranges
-    |   |   ├── testA              # about 200 images of apples
-    |   |   └── testB              # about 200 images of oranges
+├── datasets                   
+|   ├── <your_datasets_name>   # i.e. apple2orange         
+|   |   ├── trainA             # about 1000 images of apples
+|   |   ├── trainB             # about 1000 images of oranges
+|   |   ├── testA              # about 200 images of apples
+|   |   └── testB              # about 200 images of oranges
 ```
 
 #### 2.开始训练(Start training)
 
 In your Python environment：(For example)
 ```
-python train.py --root datasets/<your_dataset_name>/ --cuda
+python train.py --root ./datasets/<your_dataset_name>/ --cuda
 ```
     
 `--cuda` is optional, you can use GPU to accelerate your training speed.   
@@ -80,33 +80,55 @@ During the training, checkpoints will be saved in folder `checkpoints`.
 
 ### 测试(Testing)
 
-In your Python environment：(For example)
+In your Python environment:
 ```
-python test.py --root datasets/<your_dataset_name>/ --model_root trained_model/<your_dataset_name>/model.pth --cuda
+python test.py --root ./datasets/<your_dataset_name>/ --model_root ./trained_model/<your_dataset_name>/model.pth --cuda
 ```
 `--cuda` is optional. 
 
 **model.pth** is the pretrained model which contains 2 generators' parameters.  
 
-Test result will be saved in folders: **test_output/outputA** and **test_output/outputB**
+Test result will be saved in: **./test_output/outputA** and **./test_output/outputB**
 
 ### 应用(Apply)
 
-Put the images you want to transfer into folder **apply/inA** or **apply/inB** (It depends on whether your images belongs to domain A or domain B.)  
+Put the images you want to transfer into **./apply/inA** or **./apply/inB** (It depends on whether your images belongs to domain A or domain B.)  
 
-In your Python enviroment: (For example)
+In your Python enviroment:
 
 ```
-python transfer.py --model_root trained_model/<your_dataset_name> --cuda
+python transfer.py --model_root ./trained_model/<your_dataset_name> --cuda
 ```
 
 `--cuda` is optional.  
 
-The result will be saved in folders: **apply/outputA** and **apply/outputB**  
+The result will be saved in folders: **./apply/outputA** and **./apply/outputB**  
 
 **Notice:** All the results will be resized to 256\*256 px size. 
 
 
+## 改进(Improvement)
+
+Compared to [aitorzip/PyTorch-CycleGAN](https://github.com/aitorzip/PyTorch-CycleGAN):
+* For Pytorch0.3 -> Pytorch1.7
+  * discard the use of `torch.autograd.Variable`
+  * fix `target_real` and `target_fake` tensors, for it has supported for 0-dimensional (scalar) Tensors since Pytorch 0.4
+  * change model.cuda() to model.to(device) using device-agnostic code
+  * use dtypes, devices and numpy-style creation funcitons like torch.zeros(), torch.ones()
+  * change tensor.data to tensor.item()
+
+* Add **apply** function
+* Support to resume training from checkpoint
+* Use tensorboard instead of Visdom
+* Add image resize function: now input images' sizes do not have to resize to 256\*256 px size by yourself
+* Now testA and testB can have different number of images, even one folder could be empty
+* The filename of the generated image is the same as the original image filename, which is convenient for comparison
+* ...
+
+## Acknowledgments
+[pytorch-CycleGAN-and-pix2pixAll](https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix)   
+All credit goes to the authors of CycleGAN, Zhu, Jun-Yan and Park, Taesung and Isola, Phillip and Efros, Alexei A.  
+Thanks for github user [aitorzip](https://github.com/aitorzip)'s great work.
 
 
 
