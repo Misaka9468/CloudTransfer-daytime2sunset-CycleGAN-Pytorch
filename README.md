@@ -61,26 +61,22 @@ Compared with the original paper code, the code of this project is more easy to 
 
 #### 2.开始训练(Start training)
 
-* Do not use Colab：
-    In your Python environment：(For example)
-    ```
-    python train.py --root datasets/<your_dataset_name>/ --cuda
-    ```
+In your Python environment：(For example)
+```
+python train.py --root datasets/<your_dataset_name>/ --cuda
+```
     
-    `--cuda` is optional, you can use GPU to accelerate your training speed.   
+`--cuda` is optional, you can use GPU to accelerate your training speed.   
     
-    You can also specify other arguments such as `--size 256` `--lr 0.0002`. Check out train.py for details.  
+You can also specify other arguments such as `--size 256` `--lr 0.0002`. Check out train.py for details.  
     
-    If you want to view the loss function graph and the generated pictures, you can use **tensorboard**.
-    ```
-    tensorboard --logdir = logs
-    ```
-    Then you can click the URL http://localhost:6006/ and check the result.   
+If you want to view the loss function graph and the generated pictures, you can use **tensorboard**.
+```
+tensorboard --logdir = logs
+```
+Then you can click the URL http://localhost:6006/ and check the result.   
     
-    During the training, checkpoints will be saved in folder `checkpoints`,
-
-* Use Colab:
-  []
+During the training, checkpoints will be saved in folder `checkpoints`.
 
 ### 测试(Testing)
 
